@@ -1,3 +1,4 @@
+import os
 import csv
 import re
 from urllib.parse import urlparse
@@ -48,6 +49,11 @@ def scrape_html(input_path: str, output_dir: str, filename: str = "bookmark", ex
     if not input_path.is_file():
         print(f"Error: {input_path} does not exist.")
         return
+
+    # Check if the directory exists
+    if not os.path.exists(output_dir):
+        print(f"Error: {output_dir} does not exist.")
+        os.makedirs(output_dir)
 
     # Parse HTML file
     with input_path.open("r", encoding="utf-8") as f:
@@ -101,8 +107,8 @@ def scrape_html(input_path: str, output_dir: str, filename: str = "bookmark", ex
 
 # Example usage
 scrape_html(
-    input_path="/Users/user/Desktop/data-scraping/google-chome-bookmarks/bookmarks.html",
-    output_dir="/Users/user/Desktop",
+    input_path="/Users/user/Desktop/data-scraping/google-chrome-bookmarks/bookmarks.html",
+    output_dir="/Users/user/Desktop/bookmarks",
     filename="bookmark",
     extension="csv",
     strip_char="...",
